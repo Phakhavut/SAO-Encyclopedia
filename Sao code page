@@ -3,39 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAO Encyclopedia</title>
+  <title>สารานุกรม SAO</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Kanit', sans-serif; }
+    body {
+      font-family: 'Kanit', sans-serif;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 min-h-screen">
   <header class="bg-purple-700 text-white text-center py-6 shadow-lg">
-    <h1 class="text-3xl font-bold">🌐 สารานุกรม SAO</h1>
+    <h1 class="text-4xl font-bold">🌐 สารานุกรม SAO</h1>
+    <p class="text-lg mt-2">Sword Art Online Universe Encyclopedia</p>
   </header>
 
   <main class="p-6 max-w-4xl mx-auto">
     <div id="encyclopedia" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
   </main>
 
-  <script>
-    const characters = [
-      { name: "คิริโตะ (Kirito)", info: "นักดาบเดี่ยวใน SAO มีทักษะการเล่นเกมขั้นสูง" },
-      { name: "อาสึนะ (Asuna)", info: "ผู้เล่นหญิงอันดับต้น ๆ ใน SAO มีฉายาว่า 'Flash'" },
-      { name: "ยูอิ (Yui)", info: "AI ที่เสมือนลูกสาวของคิริโตะและอาสึนะ" },
-    ];
+  <footer class="text-center text-sm text-gray-600 py-4">
+    สร้างโดย Namyen • SAO แฟนพันธุ์แท้
+  </footer>
 
-    const container = document.getElementById("encyclopedia");
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const characters = [
+        {
+          name: "คิริโตะ (Kirito)",
+          info: "นักดาบเดี่ยวใน SAO มีทักษะการเล่นเกมขั้นสูง",
+          image: "https://i.imgur.com/9qUXa7V.png"
+        },
+        {
+          name: "อาสึนะ (Asuna)",
+          info: "ผู้เล่นหญิงอันดับต้น ๆ มีฉายา 'Flash'",
+          image: "https://i.imgur.com/3FJd0oN.png"
+        },
+        {
+          name: "ยูอิ (Yui)",
+          info: "AI ที่เสมือนลูกสาวของคิริโตะและอาสึนะ",
+          image: "https://i.imgur.com/AV9WhlC.png"
+        }
+      ];
 
-    characters.forEach(char => {
-      const card = document.createElement("div");
-      card.className = "bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition";
-      card.innerHTML = `
-        <h2 class="text-xl font-bold text-purple-700 mb-2">${char.name}</h2>
-        <p class="text-gray-700">${char.info}</p>
-      `;
-      container.appendChild(card);
+      const container = document.getElementById("encyclopedia");
+
+      characters.forEach(char => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden";
+        card.innerHTML = `
+          <img src="${char.image}" alt="${char.name}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h2 class="text-xl font-semibold text-purple-700 mb-2">${char.name}</h2>
+            <p class="text-gray-700">${char.info}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     });
   </script>
 </body>
