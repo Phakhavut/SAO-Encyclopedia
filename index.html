@@ -9,14 +9,15 @@
   <style>
     /* Reset & base */
     body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #f0f0f0;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: #f5f5f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0 20px;
+      margin: 0; padding: 0 15px;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     a {
-      color: #00ffe7;
+      color: #ffb86c;
       text-decoration: none;
     }
     a:hover {
@@ -27,87 +28,127 @@
     header {
       text-align: center;
       padding: 2rem 1rem 1rem;
-      border-bottom: 2px solid #00ffe7;
-      box-shadow: 0 3px 10px rgba(0, 255, 231, 0.3);
+      border-bottom: 3px solid #ff79c6;
+      box-shadow: 0 4px 15px rgba(255, 121, 198, 0.6);
       user-select: none;
     }
     header h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin: 0;
-      text-shadow: 2px 2px 5px #000;
+      color: #ff79c6;
+      text-shadow: 0 0 10px #ff79c6;
     }
     header p {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-top: 0.5rem;
-      color: #a0fff8;
+      color: #bd93f9;
       font-style: italic;
-      text-shadow: 1px 1px 3px #000;
+      text-shadow: 0 0 5px #bd93f9;
     }
 
     /* Navigation menu */
     nav {
-      background: linear-gradient(90deg, #00ffe7, #006666);
+      background: linear-gradient(90deg, #ff79c6, #8be9fd, #50fa7b, #ffb86c, #ff5555);
       margin: 1rem auto;
       max-width: 900px;
-      border-radius: 12px;
-      padding: 0.5rem 0;
+      border-radius: 16px;
+      padding: 0.6rem 0;
       display: flex;
-      justify-content: center;
-      gap: 3rem;
+      justify-content: space-around;
       font-weight: 700;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 10px rgba(0, 255, 231, 0.6);
+      font-size: 1.15rem;
+      box-shadow: 0 6px 20px rgba(255, 121, 198, 0.8);
       user-select: none;
+      flex-wrap: wrap;
     }
     nav a {
-      color: #003333;
+      color: #222;
       text-decoration: none;
-      padding: 8px 15px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
+      background: #f8f8f8;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
+      min-width: 120px;
+      justify-content: center;
+      margin: 4px 6px;
     }
     nav a:hover,
     nav a:focus {
-      background-color: #00ffe7;
-      color: #003333;
-      box-shadow: 0 0 15px #00ffe7;
+      background-color: #ff79c6;
+      color: #fff;
+      box-shadow: 0 0 18px #ff79c6;
       transform: scale(1.1);
+      font-weight: 800;
     }
     nav a i {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
 
     /* Main content */
     main {
       max-width: 900px;
       margin: 2rem auto 3rem;
-      background: rgba(0,0,0,0.4);
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 0 15px rgba(0, 255, 231, 0.7);
+      background: rgba(25, 25, 35, 0.9);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 0 20px rgba(255, 121, 198, 0.8);
+      user-select: text;
     }
     section {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
     h2 {
-      color: #00ffe7;
-      border-bottom: 2px solid #00ffe7;
-      padding-bottom: 0.3rem;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 3px #000;
+      color: #ff79c6;
+      border-bottom: 3px solid #ff79c6;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px #ff79c6;
     }
     ul {
-      list-style-type: square;
-      padding-left: 1.2rem;
+      list-style: none;
+      padding-left: 0;
     }
     ul li {
-      margin-bottom: 0.7rem;
+      background: #2f3242;
+      margin-bottom: 1rem;
+      padding: 15px 15px 15px 110px;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 3px 10px rgba(255, 121, 198, 0.4);
+      transition: background 0.3s ease;
+    }
+    ul li:hover {
+      background: #ff79c6;
+      color: #222;
+      box-shadow: 0 5px 15px #ff79c6;
+    }
+    ul li:hover strong {
+      color: #333;
+    }
+    ul li img {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      object-fit: cover;
+      box-shadow: 0 0 10px #ff79c6;
     }
     strong {
-      color: #76f2e3;
+      font-size: 1.1rem;
+      color: #ffb86c;
+      font-weight: 700;
+    }
+    p.desc {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      color: #ccc;
     }
 
     /* Footer */
@@ -115,11 +156,27 @@
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
-      color: #aaa;
-      border-top: 1px solid #00ffe7;
+      color: #bbb;
+      border-top: 1px solid #ff79c6;
       max-width: 900px;
       margin: 0 auto 1rem;
       user-select: none;
+    }
+
+    /* Responsive */
+    @media(max-width: 650px) {
+      nav {
+        gap: 8px;
+        padding: 0.8rem 10px;
+      }
+      ul li {
+        padding-left: 105px;
+      }
+      ul li img {
+        width: 75px;
+        height: 75px;
+        left: 10px;
+      }
     }
   </style>
 </head>
@@ -127,16 +184,16 @@
 
 <header>
   <h1>SAO Encyclopedia</h1>
-  <p>Welcome to the Sword Art Online Encyclopedia — Your guide to the SAO universe</p>
+  <p>Your ultimate guide to the Sword Art Online universe</p>
 </header>
 
 <nav>
-  <a href="#characters"><i class="fas fa-user"></i>Characters</a>
-  <a href="#villains"><i class="fas fa-skull-crossbones"></i>Villains</a>
-  <a href="#weapons"><i class="fas fa-sword"></i>Weapons</a>
-  <a href="#skills"><i class="fas fa-bolt"></i>Skills & Abilities</a>
-  <a href="#worlds"><i class="fas fa-globe"></i>Worlds</a>
-  <a href="#story"><i class="fas fa-book"></i>Story Arcs</a>
+  <a href="#characters"><i class="fas fa-user"></i> Characters</a>
+  <a href="#villains"><i class="fas fa-skull-crossbones"></i> Villains</a>
+  <a href="#weapons"><i class="fas fa-sword"></i> Weapons</a>
+  <a href="#skills"><i class="fas fa-bolt"></i> Skills & Abilities</a>
+  <a href="#worlds"><i class="fas fa-globe"></i> Worlds</a>
+  <a href="#story"><i class="fas fa-book"></i> Story Arcs</a>
 </nav>
 
 <main>
@@ -144,68 +201,140 @@
   <section id="characters">
     <h2>Main Characters</h2>
     <ul>
-      <li><strong>Kirito (Kazuto Kirigaya)</strong> - The Black Swordsman and the main protagonist known for his incredible skill and determination.</li>
-      <li><strong>Asuna (Asuna Yuuki)</strong> - Vice-commander of the Knights of the Blood and Kirito’s love interest, a powerful swordswoman.</li>
-      <li><strong>Leafa (Suguha Kirigaya)</strong> - Kirito’s cousin and a skilled Sylph player in Alfheim Online.</li>
-      <li><strong>Sinon (Shino Asada)</strong> - A sharpshooter known for her cool-headedness and tragic backstory.</li>
-      <li><strong>Klein (Ryoutarou Tsuboi)</strong> - Kirito’s close friend and guild leader of Fuurinkazan.</li>
-      <li><strong>Silica (Keiko Ayano)</strong> - A beast tamer with her pet dragon Pina.</li>
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Kirito_Anime.png/100px-Kirito_Anime.png" alt="Kirito" />
+        <strong>Kirito (Kazuto Kirigaya)</strong>
+        <p class="desc">The Black Swordsman, known for his skill in dual-wielding and solo play, Kirito is the protagonist who fights to clear Aincrad and protect his friends.</p>
+      </li>
+      <li>
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f0/Asuna_SAO.png/100px-Asuna_SAO.png" alt="Asuna" />
+        <strong>Asuna Yuuki</strong>
+        <p class="desc">Vice-commander of the Knights of the Blood, Asuna is a fierce and skilled swordswoman who fights alongside Kirito and is his beloved partner.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/3/34/Leafa_Alfheim.png/revision/latest/scale-to-width-down/100?cb=20200226061936" alt="Leafa" />
+        <strong>Leafa (Suguha Kirigaya)</strong>
+        <p class="desc">Kirito’s cousin and expert Sylph player in Alfheim Online, she is skilled in magic and flight combat.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/f/fc/Sinon_GGO.png/revision/latest/scale-to-width-down/100?cb=20170903052543" alt="Sinon" />
+        <strong>Sinon (Shino Asada)</strong>
+        <p class="desc">Expert sniper in Gun Gale Online, Sinon overcomes her traumatic past and becomes a trusted ally of Kirito.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/0/06/KleinSAO.png/revision/latest/scale-to-width-down/100?cb=20170905132703" alt="Klein" />
+        <strong>Klein (Ryoutarou Tsuboi)</strong>
+        <p class="desc">Kirito’s loyal friend and leader of the Fuurinkazan guild, Klein is known for his bravery and camaraderie.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/8/84/Silica_SAO.png/revision/latest/scale-to-width-down/100?cb=20170905132555" alt="Silica" />
+        <strong>Silica (Keiko Ayano)</strong>
+        <p class="desc">A beast tamer who travels with her pet dragon Pina, Silica is cheerful and brave despite her young age.</p>
+      </li>
     </ul>
   </section>
 
   <section id="villains">
     <h2>Notable Villains</h2>
     <ul>
-      <li><strong>Kayaba Akihiko</strong> - Creator of Sword Art Online and first major antagonist.</li>
-      <li><strong>Heathcliff (Akihiko Kayaba)</strong> - The in-game avatar of Kayaba, the ruthless leader of the Knights of the Blood.</li>
-      <li><strong>PoH (Prince of Hell)</strong> - Boss of the 75th floor of Aincrad.</li>
-      <li><strong>Death Gun</strong> - The deadly assassin in Gun Gale Online.</li>
-      <li><strong>Administrator (Subtilizer)</strong> - Main antagonist in Alfheim Online.</li>
-      <li><strong>Eugeo</strong> - Important ally turned antagonist in Alicization (complex role).</li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/5/56/Kayaba_Akihiko_SAO.png/revision/latest/scale-to-width-down/100?cb=20170905133144" alt="Kayaba Akihiko" />
+        <strong>Kayaba Akihiko</strong>
+        <p class="desc">Creator of Sword Art Online, Kayaba trapped thousands of players in the game, forcing them to clear the levels or face death in real life.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/f/f7/Zekken_SAO.png/revision/latest/scale-to-width-down/100?cb=20170905134411" alt="Zekken" />
+        <strong>Zekken (Death Gun)</strong>
+        <p class="desc">An infamous assassin in Gun Gale Online, capable of killing players both in-game and in real life.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/7/7f/Argo_SAO.png/revision/latest/scale-to-width-down/100?cb=20170905132653" alt="Argo" />
+        <strong>Argo</strong>
+        <p class="desc">An information broker with dubious motives, Argo trades valuable intel and often operates in morally grey zones.</p>
+      </li>
     </ul>
   </section>
 
   <section id="weapons">
-    <h2>Famous Weapons</h2>
+    <h2>Iconic Weapons</h2>
     <ul>
-      <li><strong>Elucidator</strong> - Kirito’s signature black sword.</li>
-      <li><strong>Lambent Light</strong> - Asuna’s elegant rapier.</li>
-      <li><strong>Dark Repulsor</strong> - Kirito’s blue energy blade.</li>
-      <li><strong>Hecate II</strong> - Sinon’s sniper rifle.</li>
-      <li><strong>Artemis Bow</strong> - Used by Leafa in Alfheim Online.</li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/c/cd/Elucidator.png/revision/latest/scale-to-width-down/100?cb=20130219115730" alt="Elucidator" />
+        <strong>Elucidator</strong>
+        <p class="desc">Kirito’s primary sword in Aincrad, a sleek black blade known for its sharpness and power.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/7/7a/Lambent_Light.png/revision/latest/scale-to-width-down/100?cb=20130219115735" alt="Lambent Light" />
+        <strong>Lambent Light</strong>
+        <p class="desc">Asuna’s elegant rapier, prized for speed and precision in battle.</p>
+      </li>
+      <li>
+        <img src="https://static.wikia.nocookie.net/swordartonline/images/d/d3/PSG1.png/revision/latest/scale-to-width-down/100?cb=20170905134114" alt="PSG1" />
+        <strong>PSG1 Sniper Rifle</strong>
+        <p class="desc">Sinon's signature sniper rifle in Gun Gale Online, famous for deadly accuracy.</p>
+      </li>
     </ul>
   </section>
 
   <section id="skills">
     <h2>Skills & Abilities</h2>
     <ul>
-      <li><strong>Dual Wielding</strong> - Kirito’s unique ability to wield two swords at once.</li>
-      <li><strong>Flash Dash</strong> - High-speed movement skill used in Aincrad.</li>
-      <li><strong>Sniping</strong> - Sinon’s expert marksmanship skill in Gun Gale Online.</li>
-      <li><strong>Flight</strong> - Common skill in Alfheim Online allowing players to fly.</li>
-      <li><strong>System Commands</strong> - Special commands like /respawn or /logout in various VRMMORPGs.</li>
+      <li>
+        <strong>Dual Wielding</strong>
+        <p class="desc">A rare skill possessed by Kirito allowing him to wield two swords simultaneously for rapid and powerful attacks.</p>
+      </li>
+      <li>
+        <strong>Healing Magic</strong>
+        <p class="desc">Used by various characters like Lisbeth and Silica to support their teammates during combat.</p>
+      </li>
+      <li>
+        <strong>Sniping</strong>
+        <p class="desc">A high precision skill that Sinon masters in Gun Gale Online to eliminate targets from a distance.</p>
+      </li>
     </ul>
   </section>
 
   <section id="worlds">
     <h2>Virtual Worlds</h2>
     <ul>
-      <li><strong>Aincrad</strong> - The iconic floating castle world where the first SAO game takes place.</li>
-      <li><strong>Alfheim Online (ALO)</strong> - A magical world with fairy races and flight.</li>
-      <li><strong>Gun Gale Online (GGO)</strong> - A futuristic, gun-based battle arena world.</li>
-      <li><strong>Underworld</strong> - The advanced virtual world explored in the Alicization arc.</li>
-      <li><strong>Ordinal Scale</strong> - Augmented reality world featured in the movie.</li>
+      <li>
+        <strong>Aincrad</strong>
+        <p class="desc">A floating castle with 100 floors, setting of the original Sword Art Online game.</p>
+      </li>
+      <li>
+        <strong>Alfheim Online (ALO)</strong>
+        <p class="desc">A magical world filled with fairies and flying combat, featured prominently in the Fairy Dance arc.</p>
+      </li>
+      <li>
+        <strong>Gun Gale Online (GGO)</strong>
+        <p class="desc">A futuristic shooting game where players use firearms and tactics, key in the Phantom Bullet arc.</p>
+      </li>
+      <li>
+        <strong>Underworld</strong>
+        <p class="desc">An advanced virtual world featured in the Alicization arc, with complex AI and ethical dilemmas.</p>
+      </li>
     </ul>
   </section>
 
   <section id="story">
-    <h2>Major Story Arcs</h2>
+    <h2>Story Arcs</h2>
     <ul>
-      <li><strong>Aincrad Arc</strong> - The first and most iconic arc where players are trapped inside SAO.</li>
-      <li><strong>Fairy Dance Arc</strong> - Set in Alfheim Online, focusing on rescuing Asuna.</li>
-      <li><strong>Phantom Bullet Arc</strong> - Takes place in Gun Gale Online, dealing with Death Gun.</li>
-      <li><strong>Mother's Rosario Arc</strong> - Emotional story about Asuna and a terminally ill player.</li>
-      <li><strong>Alicization Arc</strong> - A long arc exploring artificial intelligence and virtual reality ethics.</li>
+      <li>
+        <strong>Aincrad Arc</strong>
+        <p class="desc">The original survival game where Kirito and thousands of others are trapped, fighting to clear 100 floors.</p>
+      </li>
+      <li>
+        <strong>Fairy Dance Arc</strong>
+        <p class="desc">Kirito enters Alfheim Online to rescue Asuna from captivity within the virtual world.</p>
+      </li>
+      <li>
+        <strong>Phantom Bullet Arc</strong>
+        <p class="desc">Kirito investigates mysterious deaths linked to Gun Gale Online’s Death Gun.</p>
+      </li>
+      <li>
+        <strong>Alicization Arc</strong>
+        <p class="desc">A long arc exploring artificial intelligence and virtual reality ethics in the Underworld.</p>
+      </li>
     </ul>
   </section>
 
