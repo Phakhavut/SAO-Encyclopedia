@@ -9,46 +9,129 @@
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 2rem;
+      margin: 0; padding: 0 20px;
+      line-height: 1.6;
     }
-    h1 {
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-bottom: 2px solid #00ffe7;
+      box-shadow: 0 3px 10px rgba(0, 255, 231, 0.3);
+    }
+    header h1 {
       font-size: 3rem;
-      margin-bottom: 0.5rem;
+      margin: 0;
       text-shadow: 2px 2px 5px #000;
     }
-    h2 {
-      font-size: 1.8rem;
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      color: #a0fff8;
+      font-style: italic;
+      text-shadow: 1px 1px 3px #000;
+    }
+    nav {
+      background: rgba(0,255,231,0.1);
+      margin: 1rem auto;
+      max-width: 900px;
+      border-radius: 10px;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    nav a {
       color: #00ffe7;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 5px #00ffe7;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto 3rem;
+      background: rgba(0,0,0,0.4);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.7);
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #00ffe7;
+      border-bottom: 2px solid #00ffe7;
+      padding-bottom: 0.3rem;
       margin-bottom: 1rem;
       text-shadow: 1px 1px 3px #000;
     }
-    p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-      line-height: 1.6;
-      text-shadow: 0 0 3px #000;
+    ul {
+      list-style-type: square;
+      padding-left: 1.2rem;
     }
     footer {
+      text-align: center;
+      padding: 1rem;
       font-size: 0.9rem;
       color: #aaa;
-      margin-top: auto;
-      padding-top: 1rem;
-      text-shadow: 0 0 2px #000;
+      border-top: 1px solid #00ffe7;
+      max-width: 900px;
+      margin: 0 auto 1rem;
     }
   </style>
 </head>
 <body>
+
+<header>
   <h1>SAO Encyclopedia</h1>
-  <h2>Welcome to the Sword Art Online Encyclopedia</h2>
-  <p>This site contains information about characters, weapons, guilds, and worlds of the SAO universe. Explore and discover the digital world of Aincrad, Alfheim, GGO and beyond!</p>
-  <footer>&copy; 2025 SAO Fans by Namyen</footer>
+  <p>Welcome to the Sword Art Online Encyclopedia</p>
+</header>
+
+<nav>
+  <a href="#characters">Characters</a>
+  <a href="#weapons">Weapons</a>
+  <a href="#worlds">Worlds</a>
+</nav>
+
+<main>
+  <section id="characters">
+    <h2>Main Characters</h2>
+    <ul>
+      <li><strong>Kirito</strong> - The Black Swordsman and main protagonist.</li>
+      <li><strong>Asuna</strong> - The Strong-Willed Vice-Commander of the Knights of the Blood.</li>
+      <li><strong>Leafa</strong> - Kirito’s cousin and skilled Sylph warrior.</li>
+      <li><strong>Sinon</strong> - A sharpshooter known for her calm demeanor.</li>
+    </ul>
+  </section>
+
+  <section id="weapons">
+    <h2>Famous Weapons</h2>
+    <ul>
+      <li><strong>Elucidator</strong> - Kirito’s signature black sword.</li>
+      <li><strong>Lambent Light</strong> - Asuna’s elegant rapier.</li>
+      <li><strong>Heavensworth</strong> - A powerful longsword.</li>
+      <li><strong>Hecate II</strong> - Sinon’s sniper rifle.</li>
+    </ul>
+  </section>
+
+  <section id="worlds">
+    <h2>Virtual Worlds</h2>
+    <ul>
+      <li><strong>Aincrad</strong> - The floating castle world of Sword Art Online.</li>
+      <li><strong>Alfheim Online (ALO)</strong> - The magical fairy world.</li>
+      <li><strong>Gun Gale Online (GGO)</strong> - A futuristic, gun-based battle arena.</li>
+      <li><strong>Underworld</strong> - The advanced virtual reality world from Alicization.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 SAO Fans by Namyen
+</footer>
+
 </body>
 </html>
