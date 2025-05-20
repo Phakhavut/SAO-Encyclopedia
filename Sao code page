@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>สารานุกรม SAO</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fdfdfd;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>สารานุกรม Sword Art Online (SAO)</h1>
+  </header>
+
+  <div class="container" id="encyclopedia">
+    <!-- ตัวละครหรือข้อมูลจะถูกแสดงตรงนี้ -->
+  </div>
+
+  <script>
+    const characters = [
+      {
+        name: "คิริโตะ (Kirito)",
+        info: "พระเอกของเรื่อง SAO นักดาบเดี่ยว มีทักษะการเล่นเกมขั้นสูง"
+      },
+      {
+        name: "อาสึนะ (Asuna)",
+        info: "ผู้เล่นหญิงที่เก่งมากใน SAO และเป็นคนสำคัญของคิริโตะ"
+      },
+      {
+        name: "ยูอิ (Yui)",
+        info: "AI ที่มีจิตใจคล้ายมนุษย์ เป็นเสมือนลูกของคิริโตะกับอาสึนะ"
+      },
+      {
+        name: "อลิซ (Alice)",
+        info: "อัศวินในโลก Underworld จากภาค Alicization"
+      }
+    ];
+
+    const container = document.getElementById("encyclopedia");
+
+    characters.forEach(char => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `<h3>${char.name}</h3><p>${char.info}</p>`;
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
