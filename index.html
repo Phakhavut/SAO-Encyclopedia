@@ -2,270 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SAO Encyclopedia</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* Reset & base */
-    body {
-      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-      color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0 15px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    a {
-      color: #ffb86c;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      border-bottom: 3px solid #ff79c6;
-      box-shadow: 0 4px 15px rgba(255, 121, 198, 0.6);
-      user-select: none;
-    }
-    header h1 {
-      font-size: 3.5rem;
-      margin: 0;
-      color: #ff79c6;
-      text-shadow: 0 0 10px #ff79c6;
-    }
-    header p {
-      font-size: 1.4rem;
-      margin-top: 0.5rem;
-      color: #bd93f9;
-      font-style: italic;
-      text-shadow: 0 0 5px #bd93f9;
-    }
-
-    /* Navigation menu */
-    nav {
-      background: linear-gradient(90deg, #ff79c6, #8be9fd, #50fa7b, #ffb86c, #ff5555);
-      margin: 1rem auto;
-      max-width: 900px;
-      border-radius: 16px;
-      padding: 0.6rem 0;
-      display: flex;
-      justify-content: space-around;
-      font-weight: 700;
-      font-size: 1.15rem;
-      box-shadow: 0 6px 20px rgba(255, 121, 198, 0.8);
-      user-select: none;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: #222;
-      text-decoration: none;
-      padding: 10px 18px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #f8f8f8;
-      box-shadow: 0 3px 7px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      min-width: 120px;
-      justify-content: center;
-      margin: 4px 6px;
-    }
-    nav a:hover,
-    nav a:focus {
-      background-color: #ff79c6;
-      color: #fff;
-      box-shadow: 0 0 18px #ff79c6;
-      transform: scale(1.1);
-      font-weight: 800;
-    }
-    nav a i {
-      font-size: 1.4rem;
-    }
-
-    /* Main content */
-    main {
-      max-width: 900px;
-      margin: 2rem auto 3rem;
-      background: rgba(25, 25, 35, 0.9);
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
-      box-shadow: 0 0 20px rgba(255, 121, 198, 0.8);
-      user-select: text;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    h2 {
-      color: #ff79c6;
-      border-bottom: 3px solid #ff79c6;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 8px #ff79c6;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    ul li {
-      background: #2f3242;
-      margin-bottom: 1rem;
-      padding: 15px 15px 15px 110px;
-      border-radius: 12px;
-      position: relative;
-      box-shadow: 0 3px 10px rgba(255, 121, 198, 0.4);
-      transition: background 0.3s ease;
-    }
-    ul li:hover {
-      background: #ff79c6;
-      color: #222;
-      box-shadow: 0 5px 15px #ff79c6;
-    }
-    ul li:hover strong {
-      color: #333;
-    }
-    ul li img {
-      width: 90px;
-      height: 90px;
-      border-radius: 10px;
-      position: absolute;
-      top: 50%;
-      left: 15px;
-      transform: translateY(-50%);
-      object-fit: cover;
-      box-shadow: 0 0 10px #ff79c6;
-    }
-    strong {
-      font-size: 1.1rem;
-      color: #ffb86c;
-      font-weight: 700;
-    }
-    p.desc {
-      margin-top: 0.4rem;
-      font-size: 0.95rem;
-      color: #ccc;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #bbb;
-      border-top: 1px solid #ff79c6;
-      max-width: 900px;
-      margin: 0 auto 1rem;
-      user-select: none;
-    }
-
-    /* Responsive */
-    @media(max-width: 650px) {
-      nav {
-        gap: 8px;
-        padding: 0.8rem 10px;
-      }
-      ul li {
-        padding-left: 105px;
-      }
-      ul li img {
-        width: 75px;
-        height: 75px;
-        left: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <h1>SAO Encyclopedia</h1>
+    <p>The ultimate guide to the world of Sword Art Online</p>
+  </header>
 
-<header>
-  <h1>SAO Encyclopedia</h1>
-  <p>Your ultimate guide to the Sword Art Online universe</p>
-</header>
-
-<nav>
-  <a href="#characters"><i class="fas fa-user"></i> Characters</a>
-  <a href="#villains"><i class="fas fa-skull-crossbones"></i> Villains</a>
-  <a href="#weapons"><i class="fas fa-sword"></i> Weapons</a>
-  <a href="#skills"><i class="fas fa-bolt"></i> Skills & Abilities</a>
-  <a href="#worlds"><i class="fas fa-globe"></i> Worlds</a>
-  <a href="#story"><i class="fas fa-book"></i> Story Arcs</a>
-</nav>
-
-<main>
-  <section id="characters">
-    <h2>Main Characters</h2>
-    <!-- (characters list as in previous message) -->
-  </section>
-
-  <section id="villains">
-    <h2>Notable Villains</h2>
-    <!-- (villains list as in previous message) -->
-  </section>
-
-  <section id="weapons">
-    <h2>Iconic Weapons</h2>
-    <!-- (weapons list as in previous message) -->
-  </section>
-
-  <section id="skills">
-    <h2>Skills & Abilities</h2>
-    <!-- (skills list as in previous message) -->
-  </section>
-
-  <section id="worlds">
-    <h2>Virtual Worlds</h2>
+  <nav>
     <ul>
-      <li>
-        <strong>Aincrad</strong>
-        <p class="desc">A floating steel castle with 100 floors where the original SAO death game takes place.</p>
-      </li>
-      <li>
-        <strong>Alfheim Online (ALO)</strong>
-        <p class="desc">A fantasy world with flying mechanics and different fairy races, focusing on magic and exploration.</p>
-      </li>
-      <li>
-        <strong>Gun Gale Online (GGO)</strong>
-        <p class="desc">A gun-based VRMMO world where players battle with firearms in tournaments and PvP combat.</p>
-      </li>
-      <li>
-        <strong>Underworld</strong>
-        <p class="desc">A highly advanced simulation for AI development, filled with medieval settings and deep philosophical themes.</p>
-      </li>
+      <li><a href="#characters">Characters</a></li>
+      <li><a href="#villains">Villains</a></li>
+      <li><a href="#weapons">Weapons</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#worlds">Worlds</a></li>
+      <li><a href="#story">Story</a></li>
     </ul>
-  </section>
+  </nav>
 
-  <section id="story">
-    <h2>Story Arcs</h2>
-    <ul>
-      <li>
-        <strong>Aincrad Arc</strong>
-        <p class="desc">The original survival arc where players are trapped in SAO and must fight to clear all 100 floors.</p>
-      </li>
-      <li>
-        <strong>Fairy Dance Arc</strong>
-        <p class="desc">Kirito enters ALO to rescue Asuna, encountering new allies and enemies in a magical setting.</p>
-      </li>
-      <li>
-        <strong>Phantom Bullet Arc</strong>
-        <p class="desc">Kirito investigates mysterious deaths in GGO and meets Sinon, a skilled sniper with a painful past.</p>
-      </li>
-      <li>
-        <strong>Alicization Arc</strong>
-        <p class="desc">Kirito wakes in the Underworld, a world where time flows differently, and faces his toughest challenges yet.</p>
-      </li>
-    </ul>
-  </section>
-</main>
+  <main>
+    <section id="characters">
+      <h2>Main Characters</h2>
+      <ul>
+        <li>
+          <img src="https://i.imgur.com/UZ1kPZ2.jpg" alt="Kirito">
+          <strong>Kirito (Kazuto Kirigaya)</strong>
+          <p class="desc">The Black Swordsman and protagonist of SAO. Known for his dual-wielding ability and leadership.</p>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/fVgwVlz.jpg" alt="Asuna">
+          <strong>Asuna Yuuki</strong>
+          <p class="desc">The Lightning Flash, skilled with the rapier and Kirito’s partner both in-game and in real life.</p>
+        </li>
+      </ul>
+    </section>
 
-<footer>
-  &copy; 2025 SAO Encyclopedia. Fan project created for educational purposes.
-</footer>
+    <section id="villains">
+      <h2>Villains</h2>
+      <ul>
+        <li>
+          <img src="https://i.imgur.com/3U4BvmL.jpg" alt="Heathcliff">
+          <strong>Heathcliff (Kayaba Akihiko)</strong>
+          <p class="desc">The creator of SAO and leader of the Knights of the Blood Oath. A powerful opponent with hidden motives.</p>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/VhREKMd.jpg" alt="Sugou Nobuyuki">
+          <strong>Sugou Nobuyuki (Oberon the Fairy King)</strong>
+          <p class="desc">The main antagonist of the Fairy Dance arc, obsessed with Asuna and unethical virtual experimentation.</p>
+        </li>
+      </ul>
+    </section>
 
+    <section id="weapons">
+      <h2>Weapons</h2>
+      <ul>
+        <li>
+          <img src="https://i.imgur.com/yJ3t2cm.jpg" alt="Elucidator">
+          <strong>Elucidator</strong>
+          <p class="desc">Kirito's iconic black sword, earned by defeating a boss. Known for its power and sleek design.</p>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/xUw0I3w.jpg" alt="Lambent Light">
+          <strong>Lambent Light</strong>
+          <p class="desc">Asuna’s trusted rapier, symbolizing her speed and elegance in battle.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>
+          <img src="https://i.imgur.com/Tcz4x6X.jpg" alt="Dual Blades">
+          <strong>Dual Blades</strong>
+          <p class="desc">A unique skill possessed by Kirito that allows him to wield two swords simultaneously for devastating attacks.</p>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/WykBB4e.jpg" alt="Linear">
+          <strong>Linear</strong>
+          <p class="desc">A swift thrusting skill mastered by Asuna, showcasing her precision and speed.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="worlds">
+      <h2>Worlds</h2>
+      <ul>
+        <li>
+          <img src="https://i.imgur.com/3iGbdFo.jpg" alt="Aincrad">
+          <strong>Aincrad</strong>
+          <p class="desc">The floating castle that houses the original SAO game, with 100 challenging floors and breathtaking scenery.</p>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/DmhgkFz.jpg" alt="Alfheim Online">
+          <strong>Alfheim Online</strong>
+          <p class="desc">A fairy-themed VRMMORPG that allows players to fly and use magic, divided into multiple races.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="story">
+      <h2>Story Summary</h2>
+      <p>
+        Sword Art Online is a virtual reality MMORPG where players are trapped in the game and must fight to survive. Kirito, a skilled player, rises as a leader and battles to free everyone. Along the way, he meets allies like Asuna and confronts powerful enemies. The story spans multiple VR worlds and explores the impact of virtual reality on society.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 SAO Encyclopedia by Phakhavut Sahapong</p>
+  </footer>
 </body>
 </html>
-
