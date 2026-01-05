@@ -8,19 +8,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         :root {
-            --primary-color: #007bff; /* น้ำเงินทันสมัยแทนเขียว */
+            --primary-color: #6f42c1; /* สีม่วงหลัก */
             --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --bg-light: #f8f9fa;
+            --accent-color: #e83e8c; /* สีม่วงอ่อน/ชมพู */
+            --bg-light: #ffffff;
             --bg-dark: #1a1a1a;
             --text-light: #212529;
             --text-dark: #f8f9fa;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-card: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --shadow-light: 0 4px 8px rgba(0,0,0,0.1);
-            --shadow-dark: 0 8px 16px rgba(0,0,0,0.2);
+            --card-bg: #f8f9fa;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 20px rgba(0,0,0,0.15);
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -33,40 +31,46 @@
             background: var(--bg-dark);
             color: var(--text-dark);
         }
-        .navbar {
-            background: var(--gradient-primary);
-            box-shadow: var(--shadow-dark);
-        }
         .sidebar {
             width: 280px;
             height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
-            background: linear-gradient(180deg, #ffffff 0%, #e9ecef 100%);
-            box-shadow: var(--shadow-dark);
+            background: var(--bg-light);
+            box-shadow: var(--shadow);
             padding: 20px;
             overflow-y: auto;
             transition: transform 0.3s ease;
             z-index: 1000;
         }
         .sidebar.dark-mode {
-            background: linear-gradient(180deg, #343a40 0%, #495057 100%);
-            color: var(--text-dark);
+            background: var(--bg-dark);
+        }
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
         }
         .sidebar .list-group-item {
             background: transparent;
             border: none;
             padding: 12px 15px;
             margin-bottom: 5px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             transition: all 0.3s ease;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .list-group-item i {
+            margin-right: 10px;
         }
         .sidebar .list-group-item:hover {
-            background: var(--gradient-primary);
-            color: white;
-            transform: translateX(10px);
+            background: rgba(111, 66, 193, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
         }
         .sidebar .list-group-item.active {
             background: var(--primary-color);
@@ -74,181 +78,106 @@
         }
         .main-content {
             margin-left: 280px;
-            padding: 30px;
+            padding: 20px;
             transition: margin-left 0.3s ease;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: var(--shadow-light);
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            position: relative;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
         }
-        .card:hover {
-            box-shadow: var(--shadow-dark);
-            transform: translateY(-5px);
+        .header .search {
+            flex: 1;
+            margin-right: 20px;
         }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
+        .header .profile {
+            display: flex;
+            align-items: center;
         }
-        .btn {
-            border-radius: 25px;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255,255,255,0.3);
+        .header .profile img {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            margin-right: 10px;
         }
-        .btn:active::before {
-            width: 300px;
-            height: 300px;
+        .welcome-section {
+            margin-bottom: 30px;
+        }
+        .welcome-section h2 {
+            color: var(--primary-color);
         }
         .btn-primary {
-            background: var(--gradient-primary);
+            background: var(--primary-color);
             border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
         }
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,123,255,0.3);
+            background: #5a32a3;
         }
-        .btn-warning {
-            background: var(--warning-color);
-            border: none;
+        .summary-cards .card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
         }
-        .btn-warning:hover {
-            transform: scale(1.05);
+        .summary-cards .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
         }
-        .btn-danger {
-            background: var(--danger-color);
-            border: none;
+        .summary-cards .card-body {
+            text-align: center;
         }
-        .btn-danger:hover {
-            transform: scale(1.05);
+        .summary-cards .card-title {
+            font-size: 2rem;
+            color: var(--primary-color);
         }
-        .status-normal { color: var(--success-color); }
-        .status-high { color: var(--warning-color); }
-        .status-abnormal { color: var(--danger-color); }
+        .summary-cards .card-text {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+        .chart-section {
+            margin-bottom: 30px;
+        }
+        .chart-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+        }
         .chart-placeholder {
             height: 250px;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 15px;
-            transition: all 0.3s ease;
+            border-radius: var(--border-radius);
         }
-        .chart-placeholder:hover {
-            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
-        }
-        .device-card {
-            display: flex;
-            align-items: center;
+        .table-section {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             padding: 20px;
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            transition: all 0.3s ease;
+            background: var(--card-bg);
         }
-        .device-card:hover {
-            background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%);
-            transform: translateX(5px);
+        .table-section .table {
+            margin-bottom: 0;
         }
-        .device-icon {
-            font-size: 2.5rem;
-            margin-right: 20px;
-            transition: transform 0.3s ease;
+        .table-section .table thead th {
+            background: var(--primary-color);
+            color: white;
+            border: none;
         }
-        .device-card:hover .device-icon {
-            transform: rotate(10deg);
+        .table-section .table tbody tr:hover {
+            background: rgba(111, 66, 193, 0.05);
+        }
+        .badge {
+            border-radius: 20px;
         }
         .hidden {
             display: none;
         }
-        .toggle-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-        .notification-item {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            transition: background 0.3s ease;
-        }
-        .notification-item:hover {
-            background: #f8f9fa;
-        }
-        .tip-card {
-            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-            padding: 20px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-        .tip-card:hover {
-            transform: scale(1.02);
-        }
-        .comparison-bar {
-            height: 25px;
-            background: #e9ecef;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            position: relative;
-        }
-        .comparison-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            transition: width 1s ease;
-        }
-        .comparison-bar:hover .comparison-fill {
-            width: 80% !important; /* เอฟเฟกต์ว้าว */
-        }
-        .form-control, .form-select {
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            transition: border-color 0.3s ease;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
-        }
-        .table {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-        }
-        .table thead th {
-            background: var(--gradient-primary);
-            color: white;
-        }
-        /* Animation for page transitions */
-        .page {
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Mobile responsiveness */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -264,187 +193,199 @@
 </head>
 <body>
     <div class="sidebar" id="sidebar">
-        <h4 style="color: var(--primary-color); font-weight: bold;">เมนูหลัก</h4>
+        <div class="logo">Smart Electricity</div>
         <ul class="list-group">
-            <li class="list-group-item" onclick="showPage('dashboard')">หน้าแรก (Dashboard)</li>
-            <li class="list-group-item" onclick="showPage('devices')">อุปกรณ์ไฟฟ้า (Device Monitoring)</li>
-            <li class="list-group-item" onclick="showPage('calculator')">คำนวณการใช้ไฟ (Electricity Calculator)</li>
-            <li class="list-group-item" onclick="showPage('budget')">ตั้งงบประมาณ (Budget Management)</li>
-            <li class="list-group-item" onclick="showPage('statistics')">สถิติและตาราง (Statistics & Tables)</li>
-            <li class="list-group-item" onclick="showPage('notifications')">แจ้งเตือน (Notification Center)</li>
-            <li class="list-group-item" onclick="showPage('tips')">คำแนะนำการประหยัดไฟ (Energy Saving Tips)</li>
-            <li class="list-group-item" onclick="showPage('comparison')">เปรียบเทียบการใช้ไฟ (Comparison)</li>
+            <li class="list-group-item active" onclick="showPage('dashboard')"><i class="fas fa-tachometer-alt"></i> หน้าแรก (Dashboard)</li>
+            <li class="list-group-item" onclick="showPage('devices')"><i class="fas fa-plug"></i> อุปกรณ์ไฟฟ้า (Devices)</li>
+            <li class="list-group-item" onclick="showPage('calculator')"><i class="fas fa-calculator"></i> คำนวณค่าไฟ (Calculator)</li>
+            <li class="list-group-item" onclick="showPage('budget')"><i class="fas fa-wallet"></i> งบประมาณ (Budget)</li>
+            <li class="list-group-item" onclick="showPage('statistics')"><i class="fas fa-chart-bar"></i> สถิติ & ประวัติ (Statistics)</li>
+            <li class="list-group-item" onclick="showPage('notifications')"><i class="fas fa-bell"></i> แจ้งเตือน (Notifications)</li>
+            <li class="list-group-item" onclick="showPage('tips')"><i class="fas fa-lightbulb"></i> คำแนะนำประหยัดไฟ (Tips)</li>
+            <li class="list-group-item" onclick="showPage('comparison')"><i class="fas fa-balance-scale"></i> เปรียบเทียบการใช้ไฟ (Comparison)</li>
+            <li class="list-group-item" onclick="showPage('profile')"><i class="fas fa-user"></i> โปรไฟล์ / ตั้งค่า (Profile)</li>
         </ul>
-        <hr>
-        <h5>ระบบผู้ใช้งาน</h5>
-        <button class="btn btn-primary w-100 mb-2">เข้าสู่ระบบ</button>
-        <button class="btn btn-secondary w-100 mb-2">สมัครสมาชิก</button>
-        <button class="btn btn-outline-primary w-100 mb-2">โปรไฟล์ผู้ใช้</button>
-        <select class="form-select mb-2">
-            <option>ภาษา: ไทย</option>
-            <option>ภาษา: อังกฤษ</option>
-        </select>
-        <button class="btn btn-outline-secondary w-100" onclick="toggleTheme()">สลับธีม (สว่าง/มืด)</button>
     </div>
 
     <div class="main-content">
-        <!-- Dashboard -->
+        <!-- Dashboard Page -->
         <div id="dashboard" class="page">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">หน้าแรก (Dashboard)</h2>
-            <div class="row">
+            <div class="header">
+                <div class="search">
+                    <input type="text" class="form-control" placeholder="ค้นหา...">
+                </div>
+                <div class="profile">
+                    <img src="https://via.placeholder.com/40" alt="Profile">
+                    <span>ชื่อผู้ใช้</span>
+                    <button class="btn btn-outline-secondary ms-2"><i class="fas fa-bell"></i></button>
+                    <button class="btn btn-outline-secondary ms-2" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <div class="welcome-section">
+                <h2>สวัสดี, ชื่อผู้ใช้</h2>
+                <button class="btn btn-primary">ดาวน์โหลดรายงาน</button>
+            </div>
+
+            <div class="summary-cards row">
                 <div class="col-md-3">
-                    <div class="card text-center">
+                    <div class="card">
                         <div class="card-body">
-                            <h5>ค่าไฟฟ้าปัจจุบัน</h5>
-                            <h3 style="color: var(--primary-color);">1,250 บาท</h3>
+                            <i class="fas fa-dollar-sign fa-2x text-primary mb-2"></i>
+                            <h5 class="card-title">1,250 บาท</h5>
+                            <p class="card-text">ค่าไฟรวม (Total Cost)</p>
+                            <small>Last Update: 25/12/2023</small>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card text-center">
+                    <div class="card">
                         <div class="card-body">
-                            <h5>ปริมาณการใช้ไฟฟ้า</h5>
-                            <h3 style="color: var(--primary-color);">150 kWh</h3>
+                            <i class="fas fa-plug fa-2x text-info mb-2"></i>
+                            <h5 class="card-title">15 เครื่อง</h5>
+                            <p class="card-text">อุปกรณ์ทั้งหมด (Total Devices)</p>
+                            <small>Last Update: 25/12/2023</small>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card text-center">
+                    <div class="card">
                         <div class="card-body">
-                            <h5>สถานะการใช้ไฟ</h5>
-                            <h3 class="status-normal">ปกติ</h3>
+                            <i class="fas fa-bolt fa-2x text-warning mb-2"></i>
+                            <h5 class="card-title">150 kWh</h5>
+                            <p class="card-text">การใช้ไฟรวม (Total Usage)</p>
+                            <small>Last Update: 25/12/2023</small>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card text-center">
+                    <div class="card">
                         <div class="card-body">
-                            <h5>วันครบกำหนดชำระ</h5>
-                            <h3 style="color: var(--primary-color);">15/10/2023</h3>
+                            <i class="fas fa-calendar fa-2x text-success mb-2"></i>
+                            <h5 class="card-title">15/10/2023</h5>
+                            <p class="card-text">วันครบกำหนด (Due Date)</p>
+                            <small>Last Update: 25/12/2023</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5>กราฟการใช้ไฟของเดือนปัจจุบัน</h5>
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-line fa-4x" style="color: var(--primary-color);"></i> กราฟแสดงที่นี่ (Placeholder)
+
+            <div class="chart-section row">
+                <div class="col-md-6">
+                    <div class="chart-card">
+                        <h5>การใช้ไฟรายวัน (Electricity Usage)</h5>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-bar fa-3x text-primary"></i> กราฟแท่งแสดงที่นี่ (Placeholder)
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="chart-card">
+                        <h5>สัดส่วนอุปกรณ์ (Device Usage)</h5>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-pie fa-3x text-info"></i> กราฟวงกลมแสดงที่นี่ (Placeholder)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <div class="d-flex justify-content-between mb-3">
+                    <input type="text" class="form-control w-50" placeholder="ค้นหาอุปกรณ์...">
+                    <button class="btn btn-primary">กรอง</button>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>อุปกรณ์</th>
+                            <th>ค่าไฟ (บาท)</th>
+                            <th>สถานะ</th>
+                            <th>การดำเนินการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>หลอดไฟห้องนั่งเล่น</td>
+                            <td>50</td>
+                            <td><span class="badge bg-success">ปกติ</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>ทีวี</td>
+                            <td>200</td>
+                            <td><span class="badge bg-warning">สูง</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <!-- เพิ่มแถวอื่นๆ -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Device Monitoring -->
+        <!-- Placeholder for other pages -->
         <div id="devices" class="page hidden">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">อุปกรณ์ไฟฟ้า (Device Monitoring)</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card device-card">
-                        <i class="fas fa-lightbulb device-icon status-normal"></i>
-                        <div>
-                            <h5>หลอดไฟห้องนั่งเล่น</h5>
-                            <p>ค่าไฟ: 50 บาท | สถานะ: ปกติ</p>
-                            <button class="btn btn-primary">ดูรายละเอียด</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card device-card">
-                        <i class="fas fa-tv device-icon status-high"></i>
-                        <div>
-                            <h5>ทีวี</h5>
-                            <p>ค่าไฟ: 200 บาท | สถานะ: สูง</p>
-                            <button class="btn btn-primary">ดูรายละเอียด</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- เพิ่มอุปกรณ์อื่นๆ ตามต้องการ -->
-            </div>
+            <h2>อุปกรณ์ไฟฟ้า (Devices)</h2>
+            <p>เนื้อหาสำหรับอุปกรณ์ไฟฟ้า...</p>
         </div>
-
-        <!-- Electricity Calculator -->
         <div id="calculator" class="page hidden">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">คำนวณการใช้ไฟ (Electricity Calculator)</h2>
-            <div class="card">
-                <div class="card-body">
-                    <select class="form-select mb-3">
-                        <option>เลือกอุปกรณ์ไฟฟ้า</option>
-                        <option>หลอดไฟ</option>
-                        <option>ทีวี</option>
-                    </select>
-                    <input type="number" class="form-control mb-3" placeholder="กำหนดงบค่าไฟ (บาท)">
-                    <button class="btn btn-primary btn-lg">คำนวณ</button>
-                    <div class="mt-3">
-                        <p>ชั่วโมงใช้งานได้: 100 ชั่วโมง</p>
-                        <p>จำนวนวันที่ใช้งานได้: 10 วัน</p>
-                    </div>
-                </div>
-            </div>
+            <h2>คำนวณค่าไฟ (Calculator)</h2>
+            <p>เนื้อหาสำหรับคำนวณค่าไฟ...</p>
         </div>
-
-        <!-- Budget Management -->
         <div id="budget" class="page hidden">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">ตั้งงบประมาณ (Budget Management)</h2>
-            <div class="card">
-                <div class="card-body">
-                    <h5>ตั้งงบรายอุปกรณ์</h5>
-                    <input type="number" class="form-control mb-3" placeholder="งบสำหรับหลอดไฟ (บาท)">
-                    <h5>ตั้งงบรวมทั้งบ้าน</h5>
-                    <input type="number" class="form-control mb-3" placeholder="งบรวม (บาท)">
-                    <button class="btn btn-primary btn-lg">บันทึก</button>
-                    <div class="mt-3">
-                        <p class="status-normal">แจ้งเตือน: ใกล้เกินงบ</p>
-                    </div>
-                </div>
-            </div>
+            <h2>งบประมาณ (Budget)</h2>
+            <p>เนื้อหาสำหรับงบประมาณ...</p>
         </div>
-
-        <!-- Statistics & Tables -->
         <div id="statistics" class="page hidden">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">สถิติและตาราง (Statistics & Tables)</h2>
-            <div class="card">
-                <div class="card-body">
-                    <select class="form-select mb-3">
-                        <option>เลือกช่วงเวลา</option>
-                        <option>รายวัน</option>
-                        <option>รายเดือน</option>
-                    </select>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>วันที่</th>
-                                <th>ค่าไฟ (บาท)</th>
-                                <th>ปริมาณ (kWh)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01/10/2023</td>
-                                <td>100</td>
-                                <td>20</td>
-                            </tr>
-                            <!-- เพิ่มแถวอื่นๆ -->
-                        </tbody>
-                    </table>
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-bar fa-4x" style="color: var(--primary-color);"></i> กราฟแท่งแสดงที่นี่ (Placeholder)
-                    </div>
-                </div>
-            </div>
+            <h2>สถิติ & ประวัติ (Statistics)</h2>
+            <p>เนื้อหาสำหรับสถิติ...</p>
         </div>
-
-        <!-- Notification Center -->
         <div id="notifications" class="page hidden">
-            <h2 style="color: var(--primary-color); margin-bottom: 30px;">แจ้งเตือน (Notification Center)</h2>
-            <div class="card">
-                <div class="card-body">
-                    <div class="notification-item">
-                        <p>ใกล้ครบกำหนดชำระค่าไฟ</p>
-                        <button class="btn btn-sm btn-outline-primary">ปิด</button>
-                    </div>
-                    <div class="notification-item">
-                        <p>การใช้ไฟผิดปกติ</p>
-                        <button class="btn btn-sm btn-outline-primary">ปิด</button>
-                    </div>
+            <h2>แจ้งเตือน (Notifications)</h2>
+            <p>เนื้อหาสำหรับแจ้งเตือน...</p>
+        </div>
+        <div id="tips" class="page hidden">
+            <h2>คำแนะนำประหยัดไฟ (Tips)</h2>
+            <p>เนื้อหาสำหรับคำแนะนำ...</p>
+        </div>
+        <div id="comparison" class="page hidden">
+            <h2>เปรียบเทียบการใช้ไฟ (Comparison)</h2>
+            <p>เนื้อหาสำหรับเปรียบเทียบ...</p>
+        </div>
+        <div id="profile" class="page hidden">
+            <h2>โปรไฟล์ / ตั้งค่า (Profile)</h2>
+            <p>เนื้อหาสำหรับโปรไฟล์...</p>
+        </div>
+    </div>
 
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+            // Update active sidebar item
+            const items = document.querySelectorAll('.sidebar .list-group-item');
+            items.forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.sidebar').classList.toggle('dark-mode');
+        }
+
+        // Default to dashboard
+        showPage('dashboard');
+    </script>
+</body>
+</html>
