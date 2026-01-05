@@ -6,357 +6,189 @@
     <title>Smart Electricity Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6f42c1;
-            --primary-light: rgba(111, 66, 193, 0.1);
-            --secondary-color: #6c757d;
-            --bg-light: #f8f9fa;
-            --sidebar-bg: #ffffff;
-            --card-bg: #ffffff;
-            --text-main: #212529;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #6f42c1;
+            --bg-body: #f4f7fe;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-
-        body.dark-mode {
-            --bg-light: #121212;
-            --sidebar-bg: #1e1e1e;
-            --card-bg: #2d2d2d;
-            --text-main: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Kanit', 'Segoe UI', sans-serif;
-            background: var(--bg-light);
-            color: var(--text-main);
-            transition: var(--transition);
-        }
-
-        /* Sidebar Styling */
+        body { font-family: 'Kanit', sans-serif; background-color: var(--bg-body); }
+        
+        /* Sidebar */
         .sidebar {
-            width: 280px;
-            height: 100vh;
-            position: fixed;
-            background: var(--sidebar-bg);
-            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
-            z-index: 1000;
-            overflow-y: auto;
-            transition: var(--transition);
+            width: 260px; height: 100vh; position: fixed;
+            background: #fff; padding: 20px; border-right: 1px solid #eef2f6;
         }
-
-        .sidebar .logo-area {
-            padding: 25px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+        .nav-link {
+            color: #8b95b7; padding: 12px 15px; border-radius: 12px;
+            margin-bottom: 5px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; text-decoration: none;
         }
-
-        /* Menu & Submenu */
-        .menu-item {
-            padding: 0;
-            list-style: none;
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary); color: #fff !important;
         }
-
-        .main-link {
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: var(--transition);
-            border-radius: 8px;
-            margin: 4px 10px;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        .main-link:hover, .main-link.active {
-            background: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .main-link i.main-icon { width: 25px; }
-
-        .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background: rgba(0,0,0,0.02);
-            padding-left: 15px;
-        }
-
-        .submenu.show {
-            max-height: 500px; /* Large enough for content */
-        }
-
-        .sub-link {
-            padding: 10px 20px;
-            display: block;
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .sub-link:hover {
-            color: var(--primary-color);
-            padding-left: 25px;
-        }
-
-        .arrow { transition: transform 0.3s; }
-        .rotate { transform: rotate(90deg); }
+        .nav-link i { margin-right: 12px; width: 20px; }
 
         /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            padding: 30px;
-            transition: var(--transition);
-        }
+        .main-content { margin-left: 260px; padding: 30px; }
+        .page-header { margin-bottom: 30px; }
 
-        .page-header {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        /* Submenu Card Style (Like the screenshot) */
+        .stat-card {
+            background: #fff; border-radius: 20px; padding: 20px;
+            border: none; box-shadow: var(--card-shadow);
+            transition: 0.3s; cursor: pointer; height: 100%;
         }
-
-        .card {
-            border: none;
-            border-radius: 15px;
-            background: var(--card-bg);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            color: var(--text-main);
+        .stat-card:hover { transform: translateY(-5px); }
+        .icon-box {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 15px;
         }
+        .val { font-size: 24px; font-weight: 600; color: #2b3674; }
+        .label { color: #a3aed0; font-size: 14px; }
 
         .hidden { display: none; }
-
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="sidebar" id="sidebar">
-        <div class="logo-area">
-            <i class="fas fa-bolt me-2"></i> Smart Energy
+    <div class="sidebar">
+        <div class="mb-4 ps-3">
+            <h4 class="text-primary fw-bold">EduEase Energy</h4>
         </div>
-        
-        <nav class="mt-3">
-            <div class="menu-item">
-                <div class="main-link" onclick="showPage('dashboard', this)">
-                    <span><i class="fas fa-home main-icon"></i> หน้าแรก</span>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-devices', this)">
-                    <span><i class="fas fa-plug main-icon"></i> อุปกรณ์ไฟฟ้า</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-devices" class="submenu">
-                    <a href="#" class="sub-link" onclick="showPage('devices-list')">📋 รายการอุปกรณ์</a>
-                    <a href="#" class="sub-link" onclick="showPage('devices-add')">➕ เพิ่ม/ลบอุปกรณ์</a>
-                    <a href="#" class="sub-link">⚙️ ตั้งค่ากำลังไฟ</a>
-                    <a href="#" class="sub-link">📊 การใช้ไฟรายอุปกรณ์</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-calc', this)">
-                    <span><i class="fas fa-calculator main-icon"></i> คำนวณค่าไฟ</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-calc" class="submenu">
-                    <a href="#" class="sub-link">🔢 คำนวณจากชั่วโมงใช้งาน</a>
-                    <a href="#" class="sub-link">⏳ คำนวณจากงบประมาณ</a>
-                    <a href="#" class="sub-link">📅 รายวัน / รายเดือน</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-budget', this)">
-                    <span><i class="fas fa-wallet main-icon"></i> งบประมาณ</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-budget" class="submenu">
-                    <a href="#" class="sub-link">🏠 งบประมาณรวม</a>
-                    <a href="#" class="sub-link">📉 สถานะงบประมาณ</a>
-                    <a href="#" class="sub-link">🔔 ตั้งค่าแจ้งเตือน</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-stats', this)">
-                    <span><i class="fas fa-chart-line main-icon"></i> สถิติ & ประวัติ</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-stats" class="submenu">
-                    <a href="#" class="sub-link">📅 สถิติรายวัน/เดือน</a>
-                    <a href="#" class="sub-link">📈 กราฟแนวโน้ม</a>
-                    <a href="#" class="sub-link">📑 ดาวน์โหลดรายงาน</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-notis', this)">
-                    <span><i class="fas fa-bell main-icon"></i> แจ้งเตือน</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-notis" class="submenu">
-                    <a href="#" class="sub-link">📬 การแจ้งเตือนทั้งหมด</a>
-                    <a href="#" class="sub-link">⚠️ แจ้งเตือนใช้ไฟสูง</a>
-                    <a href="#" class="sub-link">⚙️ ตั้งค่าการแจ้งเตือน</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-tips', this)">
-                    <span><i class="fas fa-lightbulb main-icon"></i> คำแนะนำ</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-tips" class="submenu">
-                    <a href="#" class="sub-link">🌱 Tips ประหยัดไฟ</a>
-                    <a href="#" class="sub-link">🤖 วิเคราะห์ AI</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-compare', this)">
-                    <span><i class="fas fa-balance-scale main-icon"></i> เปรียบเทียบ</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-compare" class="submenu">
-                    <a href="#" class="sub-link">📊 เทียบกับค่าเฉลี่ยพื้นที่</a>
-                    <a href="#" class="sub-link">🏠 เทียบตามขนาดบ้าน</a>
-                </div>
-            </div>
-
-            <div class="menu-item">
-                <div class="main-link" onclick="toggleSubmenu('sub-settings', this)">
-                    <span><i class="fas fa-cog main-icon"></i> ตั้งค่า</span>
-                    <i class="fas fa-chevron-right arrow"></i>
-                </div>
-                <div id="sub-settings" class="submenu">
-                    <a href="#" class="sub-link">👤 โปรไฟล์</a>
-                    <a href="#" class="sub-link" onclick="toggleTheme()">🎨 เปลี่ยนธีม (สว่าง/มืด)</a>
-                    <a href="#" class="sub-link">🚪 ออกจากระบบ</a>
-                </div>
-            </div>
-        </nav>
+        <div class="nav-item">
+            <a class="nav-link active" onclick="showPage('dashboard')"><i class="fas fa-th-large"></i> Dashboard</a>
+            <a class="nav-link" onclick="showPage('devices')"><i class="fas fa-plug"></i> อุปกรณ์ไฟฟ้า</a>
+            <a class="nav-link" onclick="showPage('calculator')"><i class="fas fa-calculator"></i> คำนวณค่าไฟ</a>
+            <a class="nav-link" onclick="showPage('budget')"><i class="fas fa-wallet"></i> งบประมาณ</a>
+            <a class="nav-link" onclick="showPage('stats')"><i class="fas fa-chart-bar"></i> สถิติ & ประวัติ</a>
+            <a class="nav-link" onclick="showPage('noti')"><i class="fas fa-bell"></i> แจ้งเตือน</a>
+        </div>
     </div>
 
     <div class="main-content">
-        <div class="page-header d-flex justify-content-between align-items-center">
-            <h4 id="page-title">แดชบอร์ด</h4>
-            <div class="user-tools d-flex align-items-center">
-                <button class="btn btn-outline-secondary btn-sm me-3" onclick="toggleTheme()">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <img src="https://ui-avatars.com/api/?name=User&background=6f42c1&color=fff" class="rounded-circle" width="35">
+        <div id="page-dashboard">
+            <div class="page-header">
+                <h2>สวัสดี, Shaun Marphy 👋</h2>
+                <p class="text-secondary">สรุปภาพรวมการใช้ไฟฟ้าของคุณวันนี้</p>
             </div>
-        </div>
-
-        <div id="dashboard-page" class="content-section">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card p-4 text-center">
-                        <small class="text-secondary">ค่าไฟปัจจุบัน</small>
-                        <h2 class="text-primary">฿ 1,250.00</h2>
-                        <span class="badge bg-success-subtle text-success">สถานะ: ปกติ</span>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box bg-primary-subtle text-primary"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="val">฿242,840</div>
+                        <div class="label">ค่าไฟรวมเดือนนี้</div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card p-4 text-center">
-                        <small class="text-secondary">การใช้ไฟเดือนนี้</small>
-                        <h2>150 <small>kWh</small></h2>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box bg-info-subtle text-info"><i class="fas fa-bolt"></i></div>
+                        <div class="val">1,430 kWh</div>
+                        <div class="label">หน่วยที่ใช้สะสม</div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card p-4 text-center">
-                        <small class="text-secondary">กำหนดชำระ</small>
-                        <h2 class="text-danger">15 ต.ค.</h2>
+                <div class="col-md-3">
+                    <div class="stat-card text-center">
+                        <div class="label">สถานะปัจจุบัน</div>
+                        <div class="val text-success">ปกติ</div>
+                        <small class="text-secondary">ใช้ไฟน้อยกว่าเดือนที่แล้ว 5%</small>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="devices-list-page" class="content-section hidden">
-            <h3>📋 รายการอุปกรณ์ทั้งหมด</h3>
-            <div class="card p-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>อุปกรณ์</th>
-                            <th>วัตต์</th>
-                            <th>ใช้งาน/วัน</th>
-                            <th>ค่าไฟ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>เครื่องปรับอากาศ</td>
-                            <td>2000W</td>
-                            <td>8 ชม.</td>
-                            <td>฿ 850</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div id="page-devices" class="hidden">
+            <div class="page-header d-flex justify-content-between">
+                <div>
+                    <h2>จัดการอุปกรณ์ไฟฟ้า</h2>
+                    <p class="text-secondary">เลือกเมนูย่อยเพื่อดำเนินการ</p>
+                </div>
+                <button class="btn btn-primary align-self-center"><i class="fas fa-plus me-2"></i>เพิ่มอุปกรณ์ใหม่</button>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="val">15 รายการ</div>
+                                <div class="label fw-bold text-dark">📋 อุปกรณ์ทั้งหมด</div>
+                            </div>
+                            <div class="icon-box bg-light text-primary"><i class="fas fa-list"></i></div>
+                        </div>
+                        <hr>
+                        <small class="text-success"><i class="fas fa-check-circle me-1"></i> ทำงานปกติ 12 | <span class="text-danger">ปิดอยู่ 3</span></small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="val">2,400W</div>
+                                <div class="label fw-bold text-dark">⚙️ ตั้งค่ากำลังไฟ</div>
+                            </div>
+                            <div class="icon-box bg-light text-warning"><i class="fas fa-tools"></i></div>
+                        </div>
+                        <hr>
+                        <small class="text-secondary">อุปกรณ์กินไฟสุด: เครื่องปรับอากาศ</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="val">฿450 / วัน</div>
+                                <div class="label fw-bold text-dark">📊 การใช้ไฟรายเครื่อง</div>
+                            </div>
+                            <div class="icon-box bg-light text-info"><i class="fas fa-chart-pie"></i></div>
+                        </div>
+                        <hr>
+                        <small class="text-primary">ดูรายละเอียดแยกตามห้อง</small>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <div id="page-budget" class="hidden">
+            <div class="page-header">
+                <h2>จัดการงบประมาณ</h2>
+                <p class="text-secondary">วางแผนการเงินล่วงหน้า</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <div class="label mb-2">งบประมาณที่เหลือ</div>
+                        <div class="val text-danger">เหลือ 15%</div>
+                        <div class="progress mt-3" style="height: 10px;">
+                            <div class="progress-bar bg-danger" style="width: 85%"></div>
+                        </div>
+                        <p class="mt-3 mb-0 small text-secondary">คุณใช้ไปแล้ว ฿4,250 จากงบ ฿5,000</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box bg-light text-primary"><i class="fas fa-bell"></i></div>
+                        <div class="val">70% / 90%</div>
+                        <div class="label">จุดแจ้งเตือน</div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
 
     <script>
-        // ฟังก์ชันเปิด-ปิดเมนูย่อย
-        function toggleSubmenu(submenuId, element) {
-            const submenu = document.getElementById(submenuId);
-            const arrow = element.querySelector('.arrow');
-            
-            // ปิดเมนูย่อยอื่นๆ ก่อน (Optional)
-            // document.querySelectorAll('.submenu').forEach(s => {
-            //     if(s.id !== submenuId) s.classList.remove('show');
-            // });
-
-            submenu.classList.toggle('show');
-            arrow.classList.toggle('rotate');
-        }
-
-        // ฟังก์ชันสลับหน้า
-        function showPage(pageId, element) {
+        function showPage(pageName) {
             // ซ่อนทุกหน้า
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('hidden');
-            });
+            document.querySelectorAll('[id^="page-"]').forEach(p => p.classList.add('hidden'));
+            // แสดงหน้าเป้าหมาย
+            document.getElementById('page-' + pageName).classList.remove('hidden');
             
-            // แสดงหน้าที่เลือก
-            const targetPage = document.getElementById(pageId + '-page');
-            if(targetPage) targetPage.classList.remove('hidden');
-
-            // อัปเดต Title
-            const titles = {
-                'dashboard': 'แดชบอร์ด',
-                'devices-list': 'รายการอุปกรณ์ไฟฟ้า',
-                'devices-add': 'เพิ่มอุปกรณ์ใหม่'
-            };
-            document.getElementById('page-title').innerText = titles[pageId] || 'Smart Energy';
-
-            // ไฮไลท์เมนูที่เลือก
-            document.querySelectorAll('.main-link').forEach(link => link.classList.remove('active'));
-            if(element) element.classList.add('active');
-        }
-
-        // ฟังก์ชันสลับธีม
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            const icon = document.querySelector('.user-tools i');
-            icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            // อัปเดต Sidebar Active
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            event.currentTarget.classList.add('active');
         }
     </script>
 </body>
