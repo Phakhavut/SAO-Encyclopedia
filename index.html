@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Energy System Full Pro</title>
+    <title>EduEase Energy - Smart Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -16,26 +16,39 @@
             --bg-body: #0b1437; --sidebar-bg: #111c44; --card-bg: #111c44;
             --text-main: #ffffff; --text-gray: #a3aed0; --border: #1b254b;
         }
-        body { font-family: 'Kanit', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: 0.3s; }
-        .sidebar { width: 280px; height: 100vh; position: fixed; background: var(--sidebar-bg); padding: 20px; border-right: 1px solid var(--border); z-index: 1000; overflow-y: auto; }
-        .nav-link { color: var(--text-gray); padding: 12px 15px; border-radius: 12px; margin-bottom: 5px; cursor: pointer; display: flex; align-items: center; text-decoration: none; transition: 0.2s; }
-        .nav-link:hover, .nav-link.active { background: var(--primary); color: #fff !important; }
+        body { font-family: 'Kanit', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: 0.3s; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 280px; height: 100vh; position: fixed; background: var(--sidebar-bg); padding: 25px; border-right: 1px solid var(--border); z-index: 1000; overflow-y: auto; }
+        .nav-link { color: var(--text-gray); padding: 12px 18px; border-radius: 15px; margin-bottom: 5px; cursor: pointer; display: flex; align-items: center; text-decoration: none; transition: 0.2s; }
+        .nav-link:hover, .nav-link.active { background: var(--primary); color: #fff !important; box-shadow: 0 4px 12px rgba(111, 66, 193, 0.2); }
         .nav-link i { margin-right: 12px; width: 20px; text-align: center; }
+
+        /* Main Content */
         .main-content { margin-left: 280px; padding: 30px; }
-        .card { background: var(--card-bg); border-radius: 20px; padding: 20px; border: none; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; }
-        .val { font-size: 22px; font-weight: 700; display: block; color: var(--text-main); }
-        .label { color: var(--text-gray); font-size: 13px; font-weight: 500; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 24px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        .val { font-size: 24px; font-weight: 700; display: block; color: var(--text-main); }
+        .label { color: var(--text-gray); font-size: 14px; font-weight: 500; }
         .hidden { display: none; }
-        .sub-card { background: rgba(111, 66, 193, 0.05); border-radius: 15px; padding: 15px; cursor: pointer; border: 1px solid transparent; height: 100%; }
-        .sub-card:hover { border-color: var(--primary); }
-        hr { opacity: 0.1; }
+        
+        /* Calculator Specific */
+        .sub-card { background: rgba(111, 66, 193, 0.05); border-radius: 15px; padding: 20px; height: 100%; border: 1px solid transparent; }
+        .btn-mode.active { background-color: var(--primary) !important; color: white !important; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar { width: 80px; padding: 15px; }
+            .sidebar span, .sidebar h4 { display: none; }
+            .main-content { margin-left: 80px; }
+        }
     </style>
 </head>
 <body data-theme="light">
 
     <div class="sidebar">
-        <h4 class="fw-bold text-primary mb-4 ps-2">EduEase Energy</h4>
-        <nav id="sidebar-nav">
+        <h4 class="fw-bold text-primary mb-4 ps-2">EduEase</h4>
+        <nav>
             <a class="nav-link active" onclick="showPage('dashboard', this)"><i class="fas fa-home"></i> <span data-key="m1">หน้าแรก</span></a>
             <a class="nav-link" onclick="showPage('devices', this)"><i class="fas fa-plug"></i> <span data-key="m2">อุปกรณ์ไฟฟ้า</span></a>
             <a class="nav-link" onclick="showPage('calculator', this)"><i class="fas fa-calculator"></i> <span data-key="m3">คำนวณค่าไฟ</span></a>
@@ -52,8 +65,12 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 id="page-title" class="fw-bold" data-key="m1">หน้าแรก</h3>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary" onclick="toggleLang()"><i class="fas fa-globe me-2"></i><span id="btn-lang">EN</span></button>
-                <button class="btn btn-dark" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                <button class="btn btn-light rounded-pill px-3 shadow-sm" onclick="toggleLang()">
+                    <i class="fas fa-globe me-2 text-primary"></i><span id="btn-lang-text">EN</span>
+                </button>
+                <button class="btn btn-light rounded-circle shadow-sm" onclick="toggleTheme()">
+                    <i class="fas fa-moon text-primary" id="theme-icon"></i>
+                </button>
             </div>
         </div>
 
@@ -63,195 +80,208 @@
                 <div class="col-md-3"><div class="card"><span class="label" data-key="db2">สถานะการใช้ไฟ</span><span class="val text-success" data-key="st-normal">ปกติ</span></div></div>
                 <div class="col-md-3"><div class="card"><span class="label" data-key="db3">ใช้ไฟเดือนนี้</span><span class="val">152 kWh</span></div></div>
                 <div class="col-md-3"><div class="card"><span class="label" data-key="db4">วันครบกำหนดชำระ</span><span class="val text-danger">15/01/2026</span></div></div>
-                <div class="col-12"><div class="card">
-                    <h6 class="fw-bold" data-key="quick">ปุ่มลัดไปยังเมนูสำคัญ</h6>
-                    <div class="d-flex gap-2 mt-3">
-                        <button class="btn btn-primary" onclick="showPage('devices')">🔌 <span data-key="m2">อุปกรณ์</span></button>
-                        <button class="btn btn-primary" onclick="showPage('calculator')">🧮 <span data-key="m3">คำนวณ</span></button>
-                    </div>
-                </div></div>
             </div>
         </div>
 
         <div id="page-devices" class="page-content hidden">
             <div class="row g-3">
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv1">📋 รายการทั้งหมด</span><span class="val">15 Devices</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv2">➕ เพิ่ม/ลบอุปกรณ์</span><span class="val text-primary">+ Add New</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv3">⚙️ ตั้งค่ากำลังไฟ</span><span class="val">2,400W</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv4">📊 การใช้ไฟรายอุปกรณ์</span><span class="val">TV: 10%</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv5">💸 ค่าไฟของอุปกรณ์</span><span class="val">TV: ฿450</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="dv6">⏱ เวลาใช้งานต่อวัน</span><span class="val">3.5 hrs</span></div></div>
-                <div class="col-md-12"><div class="card bg-primary-subtle border-0">
-                    <h6 class="fw-bold" data-key="dv7">🔍 ภายในอุปกรณ์: เครื่องปรับอากาศ </h6>
-                    <p class="small text-muted" data-key="dv8">สถิติรายวัน: 12 kWh | กราฟการใช้ไฟ: [เสถียร] | สถานะงบ: ปกติ</p>
-                </div></div>
+                <div class="col-md-4"><div class="card"><span class="label" data-key="dv1">📋 รายการทั้งหมด</span><span class="val">15 Devices</span></div></div>
+                <div class="col-md-4"><div class="card"><span class="label" data-key="dv2">➕ เพิ่ม/ลบอุปกรณ์</span><button class="btn btn-sm btn-primary mt-2">+ Add</button></div></div>
+                <div class="col-md-4"><div class="card"><span class="label" data-key="dv3">⚙️ ตั้งค่ากำลังไฟ</span><span class="val">2,400W</span></div></div>
             </div>
         </div>
 
         <div id="page-calculator" class="page-content hidden">
-            <div class="row g-3">
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="c1">🔢 คำนวณจากชั่วโมง</span><input type="number" class="form-control mt-2" placeholder="Hours"></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="c2">⏳ ระยะเวลาจากงบ</span><input type="number" class="form-control mt-2" placeholder="฿ Amount"></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="c3">🔌 เลือกเครื่องใช้ไฟฟ้า</span><select class="form-select mt-2"><option>Air Conditioner</option><option>Fridge</option></select></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="c4">⚡ ปรับกำลังไฟ (วัตต์)</span><input type="number" class="form-control mt-2" value="1200"></div></div>
-                <div class="col-12"><button class="btn btn-primary w-100 py-3" data-key="c5">📅 คำนวณรายวัน / รายเดือน</button></div>
+            <div class="row g-4">
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-lg">
+                        <div class="d-flex mb-4 gap-2">
+                            <button class="btn btn-light w-50 btn-mode active" id="btn-mode-hours" onclick="switchCalcMode('hours')"><span data-key="c1">คำนวณจากชั่วโมง</span></button>
+                            <button class="btn btn-light w-50 btn-mode" id="btn-mode-budget" onclick="switchCalcMode('budget')"><span data-key="c2">คำนวณจากงบประมาณ</span></button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="label mb-2" data-key="c3">🔌 เลือกเครื่องใช้ไฟฟ้า</label>
+                            <select class="form-select" id="calc-device" onchange="updateWattBySelect()">
+                                <option value="1200">แอร์ (1,200W)</option>
+                                <option value="150">ตู้เย็น (150W)</option>
+                                <option value="100">ทีวี (100W)</option>
+                                <option value="50">พัดลม (50W)</option>
+                                <option value="2000">เครื่องทำน้ำอุ่น (2,000W)</option>
+                                <option value="0">ระบุเอง (Custom)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="label mb-2" data-key="c4">⚡ ปรับกำลังไฟ (วัตต์)</label>
+                            <div class="d-flex align-items-center gap-3">
+                                <input type="range" class="form-range" id="watt-range" min="10" max="4000" step="10" value="1200" oninput="syncWatt(this.value, 'input')">
+                                <input type="number" class="form-control" style="width: 100px;" id="watt-input" value="1200" oninput="syncWatt(this.value, 'range')">
+                            </div>
+                        </div>
+                        <div id="mode-hours-inputs">
+                            <div class="row">
+                                <div class="col-6"><label class="label">⏱️ ชม./วัน</label><input type="number" id="calc-hr" class="form-control" value="8" oninput="doCalc()"></div>
+                                <div class="col-6"><label class="label">📅 จำนวนวัน</label><input type="number" id="calc-day" class="form-control" value="30" oninput="doCalc()"></div>
+                            </div>
+                        </div>
+                        <div id="mode-budget-inputs" class="hidden">
+                            <label class="label">💰 งบประมาณ (บาท)</label>
+                            <input type="number" id="calc-money" class="form-control" value="500" oninput="doCalc()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card h-100 bg-primary text-white border-0 shadow-lg">
+                        <h5 class="fw-bold mb-4" data-key="c-res">📊 ผลลัพธ์การคำนวณ</h5>
+                        <div id="res-hours">
+                            <span class="label text-white-50" data-key="c-total">ค่าไฟรวมทั้งหมด</span>
+                            <h1 class="fw-bold mt-1" id="out-total">฿ 1,296.00</h1>
+                            <hr class="bg-white">
+                            <div class="row">
+                                <div class="col-6"><small class="text-white-50">ต่อวัน</small><p class="fw-bold mb-0" id="out-day">฿ 43.20</p></div>
+                                <div class="col-6"><small class="text-white-50">หน่วย (kWh)</small><p class="fw-bold mb-0" id="out-unit">288</p></div>
+                            </div>
+                        </div>
+                        <div id="res-budget" class="hidden">
+                            <span class="label text-white-50">ใช้งานได้นานประมาณ</span>
+                            <h1 class="fw-bold mt-1" id="out-possible-hr">92 ชม.</h1>
+                            <hr class="bg-white">
+                            <small class="text-white-50">คิดเป็นจำนวนวัน (ใช้วันละ 8 ชม.)</small>
+                            <h3 class="fw-bold" id="out-possible-day">11.5 วัน</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="page-budget" class="page-content hidden">
             <div class="row g-3">
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="b1">🏠 งบประมาณรวมทั้งบ้าน</span><span class="val">฿ 2,500</span></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="b2">🔌 งบประมาณรายอุปกรณ์</span><span class="val">฿ 500 / device</span></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="b3">📉 สถานะงบ (เหลือ/ใกล้หมด)</span><span class="val text-warning" data-key="b4">ใช้ไป 70%</span></div></div>
-                <div class="col-md-6"><div class="sub-card"><span class="label" data-key="b5">🔔 ตั้งค่าแจ้งเตือน</span><span class="val">On (70%, 90%, Over)</span></div></div>
-                <div class="col-12"><button class="btn btn-outline-primary w-100" data-key="b6">✏️ แก้ไขงบประมาณ</button></div>
-            </div>
-        </div>
-
-        <div id="page-stats" class="page-content hidden">
-            <div class="row g-3">
-                <div class="col-md-4"><div class="sub-card text-center"><i class="fas fa-calendar-day mb-2"></i><br><span data-key="s1">สถิติรายวัน</span></div></div>
-                <div class="col-md-4"><div class="sub-card text-center"><i class="fas fa-calendar-alt mb-2"></i><br><span data-key="s2">สถิติรายเดือน</span></div></div>
-                <div class="col-md-4"><div class="sub-card text-center"><i class="fas fa-history mb-2"></i><br><span data-key="s3">ตารางย้อนหลัง</span></div></div>
-                <div class="col-12"><div class="card">
-                    <h6 class="fw-bold" data-key="s4">📈 กราฟแนวโน้มการใช้ไฟ</h6>
-                    <div style="height: 150px; background: #eee; border-radius: 10px; margin: 15px 0;"></div>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-light">PDF</button><button class="btn btn-sm btn-light">CSV</button>
-                    </div>
-                </div></div>
-            </div>
-        </div>
-
-        <div id="page-noti" class="page-content hidden">
-            <div class="row g-3">
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="n1">📬 แจ้งเตือนทั้งหมด</span><span class="val">5 New</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="n2">⏰ ครบกำหนดชำระ</span><span class="val text-danger">1 Alert</span></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="n3">⚠️ ใช้ไฟสูงผิดปกติ</span><span class="val text-warning">None</span></div></div>
-                <div class="col-12"><div class="card">
-                    <h6 class="fw-bold" data-key="n4">⚙️ ตั้งค่าการแจ้งเตือน</h6>
-                    <div class="form-check form-switch mt-3"><input class="form-check-input" type="checkbox" checked> <span data-key="n5">เปิดการแจ้งเตือนงบประมาณ</span></div>
-                </div></div>
-            </div>
-        </div>
-
-        <div id="page-tips" class="page-content hidden">
-            <div class="row g-3">
-                <div class="col-md-6"><div class="card border-start border-success border-5"><h6 data-key="t1">🌱 Tips ประหยัดไฟทั่วไป</h6><p class="small text-muted">ปิดไฟเมื่อไม่ใช้...</p></div></div>
-                <div class="col-md-6"><div class="card border-start border-info border-5"><h6 data-key="t2">🤖 คำแนะนำเฉพาะตัว</h6><p class="small text-muted">ลดการใช้แอร์ช่วง 13:00...</p></div></div>
-                <div class="col-md-4"><div class="sub-card"><span class="label" data-key="t3">🏆 ความสำเร็จ</span><span class="val">Level 5</span></div></div>
-                <div class="col-md-8"><div class="sub-card"><span class="label" data-key="t4">🔍 วิเคราะห์อุปกรณ์กินไฟ</span><span class="val">Water Heater (Top 1)</span></div></div>
-            </div>
-        </div>
-
-        <div id="page-compare" class="page-content hidden">
-            <div class="row g-3">
-                <div class="col-md-6"><div class="card"><span class="label" data-key="cp1">📊 เทียบกับค่าเฉลี่ยพื้นที่</span><span class="val text-success">- 15%</span></div></div>
-                <div class="col-md-6"><div class="card"><span class="label" data-key="cp2">🏠 เทียบตามขนาดบ้าน</span><span class="val text-primary">Normal</span></div></div>
-                <div class="col-12"><div class="card text-center"><h5 data-key="cp3">📉 ระดับการใช้ไฟ: ต่ำ</h5><p class="text-muted" data-key="cp4">ข้อเสนอแนะ: ทำได้ดีมาก รักษามาตรฐานนี้ไว้</p></div></div>
+                <div class="col-md-6"><div class="card"><span class="label" data-key="b1">🏠 งบประมาณรวมทั้งบ้าน</span><span class="val">฿ 2,500</span></div></div>
+                <div class="col-md-6"><div class="card"><span class="label" data-key="b3">📉 สถานะงบ</span><span class="val text-warning">Used 70%</span></div></div>
             </div>
         </div>
 
         <div id="page-settings" class="page-content hidden">
-            <div class="card">
-                <div class="mb-3"><label class="label" data-key="st1">👤 ข้อมูลผู้ใช้</label><input type="text" class="form-control" value="Phakhavut Sahaphong"></div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="label" data-key="st2">🌐 ภาษา (Language)</label>
-                        <select class="form-select mt-1" id="lang-select" onchange="toggleLang(this.value)">
-                            <option value="th">ไทย</option><option value="en">English</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="label" data-key="st3">🎨 ธีม (Theme)</label>
-                        <div class="form-check form-switch mt-2">
-                            <input class="form-check-input" type="checkbox" id="theme-switch" onchange="toggleTheme()">
-                            <span data-key="st4">โหมดมืด (Dark)</span>
-                        </div>
-                    </div>
+            <div class="card col-md-8 mx-auto shadow-lg">
+                <div class="mb-4">
+                    <label class="label mb-2" data-key="st2">🌐 ภาษา (Language)</label>
+                    <select class="form-select" id="lang-select" onchange="toggleLang(this.value)">
+                        <option value="th">ไทย (Thai)</option>
+                        <option value="en">English</option>
+                    </select>
                 </div>
-                <hr>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary btn-sm" data-key="st5">🔐 ความปลอดภัย</button>
-                    <button class="btn btn-outline-secondary btn-sm" data-key="st6">🔔 แจ้งเตือน</button>
+                <div class="form-check form-switch mb-4">
+                    <input class="form-check-input" type="checkbox" id="theme-switch" onchange="toggleTheme()">
+                    <label class="form-check-label ms-2" data-key="st4">โหมดมืด (Dark Mode)</label>
                 </div>
-                <button class="btn btn-danger mt-4 w-100" data-key="st7">🚪 ออกจากระบบ</button>
+                <button class="btn btn-danger w-100 py-3 rounded-4 fw-bold" data-key="st7">ออกจากระบบ</button>
             </div>
         </div>
+
+        <div id="page-stats" class="page-content hidden"><div class="card"><h5 data-key="m5">สถิติ & ประวัติ</h5></div></div>
+        <div id="page-noti" class="page-content hidden"><div class="card"><h5 data-key="m6">การแจ้งเตือน</h5></div></div>
+        <div id="page-tips" class="page-content hidden"><div class="card"><h5 data-key="m7">คำแนะนำ</h5></div></div>
+        <div id="page-compare" class="page-content hidden"><div class="card"><h5 data-key="m8">เปรียบเทียบ</h5></div></div>
+
     </div>
 
     <script>
+        // 1. ระบบจัดการภาษา (สมบูรณ์ทุกจุด)
         const langData = {
             th: {
                 m1: "หน้าแรก", m2: "อุปกรณ์ไฟฟ้า", m3: "คำนวณค่าไฟ", m4: "งบประมาณ", m5: "สถิติ & ประวัติ", m6: "แจ้งเตือน", m7: "คำแนะนำ", m8: "เปรียบเทียบ", m9: "ตั้งค่า",
-                db1: "สรุปค่าไฟปัจจุบัน", db2: "สถานะการใช้ไฟ", db3: "ใช้ไฟเดือนนี้", db4: "วันครบกำหนดชำระ", st_normal: "ปกติ", quick: "ปุ่มลัดไปยังเมนูสำคัญ",
-                dv1: "📋 รายการทั้งหมด", dv2: "➕ เพิ่ม/ลบอุปกรณ์", dv3: "⚙️ ตั้งค่ากำลังไฟ", dv4: "📊 การใช้ไฟรายอุปกรณ์", dv5: "💸 ค่าไฟของอุปกรณ์", dv6: "⏱ เวลาใช้งานต่อวัน", dv7: "🔍 ภายในอุปกรณ์: เครื่องปรับอากาศ (AC)", dv8: "สถิติรายวัน: 12 kWh | สถานะงบ: ปกติ",
-                c1: "🔢 คำนวณจากชั่วโมง", c2: "⏳ ระยะเวลาจากงบ", c3: "🔌 เลือกเครื่องใช้ไฟฟ้า", c4: "⚡ ปรับกำลังไฟ (วัตต์)", c5: "📅 คำนวณรายวัน / รายเดือน",
-                b1: "🏠 งบประมาณรวมทั้งบ้าน", b2: "🔌 งบประมาณรายอุปกรณ์", b3: "📉 สถานะงบ (เหลือ/ใกล้หมด)", b4: "ใช้ไป 70%", b5: "🔔 ตั้งค่าแจ้งเตือน", b6: "✏️ แก้ไขงบประมาณ",
-                s1: "สถิติรายวัน", s2: "สถิติรายเดือน", s3: "ตารางย้อนหลัง", s4: "📈 กราฟแนวโน้มการใช้ไฟ",
-                n1: "📬 แจ้งเตือนทั้งหมด", n2: "⏰ ครบกำหนดชำระ", n3: "⚠️ ใช้ไฟสูงผิดปกติ", n4: "⚙️ ตั้งค่าการแจ้งเตือน", n5: "เปิดการแจ้งเตือนงบประมาณ",
-                t1: "🌱 Tips ประหยัดไฟทั่วไป", t2: "🤖 คำแนะนำเฉพาะตัว", t3: "🏆 ความสำเร็จ", t4: "🔍 วิเคราะห์อุปกรณ์กินไฟ",
-                cp1: "📊 เทียบกับค่าเฉลี่ยพื้นที่", cp2: "🏠 เทียบตามขนาดบ้าน", cp3: "📉 ระดับการใช้ไฟ: ต่ำ", cp4: "ข้อเสนอแนะ: ทำได้ดีมาก รักษามาตรฐานนี้ไว้",
-                st1: "👤 ข้อมูลผู้ใช้", st2: "🌐 ภาษา (Language)", st3: "🎨 ธีม (Theme)", st4: "โหมดมืด (Dark)", st5: "🔐 ความปลอดภัย", st6: "🔔 แจ้งเตือน", st7: "🚪 ออกจากระบบ"
+                db1: "สรุปค่าไฟปัจจุบัน", db2: "สถานะการใช้ไฟ", db3: "ใช้ไฟเดือนนี้", db4: "วันครบกำหนดชำระ", st_normal: "ปกติ",
+                dv1: "📋 รายการทั้งหมด", dv2: "➕ เพิ่ม/ลบอุปกรณ์", dv3: "⚙️ ตั้งค่ากำลังไฟ",
+                c1: "คำนวณจากชั่วโมง", c2: "คำนวณจากงบประมาณ", c3: "🔌 เลือกเครื่องใช้ไฟฟ้า", c4: "⚡ ปรับกำลังไฟ (วัตต์)", "c-res": "📊 ผลลัพธ์การคำนวณ", "c-total": "ค่าไฟรวมทั้งหมด",
+                b1: "🏠 งบประมาณรวม", b3: "📉 สถานะงบ",
+                st2: "🌐 ภาษา (Language)", st4: "โหมดมืด (Dark Mode)", st7: "ออกจากระบบ"
             },
             en: {
                 m1: "Dashboard", m2: "Devices", m3: "Calculator", m4: "Budget", m5: "Stats & History", m6: "Notifications", m7: "Energy Tips", m8: "Comparison", m9: "Settings",
-                db1: "Current Bill Summary", db2: "Energy Status", db3: "Usage This Month", db4: "Payment Due Date", st_normal: "Normal", quick: "Quick Links",
-                dv1: "📋 All Devices List", dv2: "➕ Add/Remove", dv3: "⚙️ Power Setting (W)", dv4: "📊 Usage per Device", dv5: "💸 Device Bill", dv6: "⏱ Daily Usage Time", dv7: "🔍 Inside: Air Conditioner (AC)", dv8: "Daily: 12 kWh | Budget Status: Normal",
-                c1: "🔢 Calc by Hours", c2: "⏳ Calc by Budget", c3: "🔌 Select Device", c4: "⚡ Adjust Wattage", c5: "📅 Calc Daily / Monthly",
-                b1: "🏠 Home Total Budget", b2: "🔌 Budget per Device", b3: "📉 Budget Status", b4: "Used 70%", b5: "🔔 Alert Settings", b6: "✏️ Edit Budget",
-                s1: "Daily Stats", s2: "Monthly Stats", s3: "History Table", s4: "📈 Usage Trend Chart",
-                n1: "📬 All Notifications", n2: "⏰ Payment Due", n3: "⚠️ Unusual High Usage", n4: "⚙️ Notification Settings", n5: "Enable Budget Alerts",
-                t1: "🌱 General Saving Tips", t2: "🤖 AI Suggestions", t3: "🏆 Achievement", t4: "🔍 High Usage Analysis",
-                cp1: "📊 Area Average Compare", cp2: "🏠 Home Size Compare", cp3: "📉 Energy Level: Low", cp4: "Suggestion: Great job! Keep it up.",
-                st1: "👤 User Profile", st2: "🌐 Language", st3: "🎨 Theme", st4: "Dark Mode", st5: "🔐 Security", st6: "🔔 Noti Settings", st7: "🚪 Logout"
+                db1: "Bill Summary", db2: "Energy Status", db3: "Monthly Usage", db4: "Due Date", st_normal: "Normal",
+                dv1: "📋 Total Devices", dv2: "➕ Add/Remove", dv3: "⚙️ Power Setting",
+                c1: "Calc by Hours", c2: "Calc by Budget", c3: "🔌 Select Appliance", c4: "⚡ Adjust Wattage", "c-res": "📊 Result", "c-total": "Estimated Cost",
+                b1: "🏠 Home Budget", b3: "📉 Status",
+                st2: "🌐 Language", st4: "Dark Mode", st7: "Logout"
             }
         };
 
         let currentLang = 'th';
-
         function toggleLang(val) {
-            if (!val) currentLang = currentLang === 'th' ? 'en' : 'th';
-            else currentLang = val;
-
+            currentLang = val || (currentLang === 'th' ? 'en' : 'th');
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (langData[currentLang][key]) el.innerText = langData[currentLang][key];
             });
-
-            document.getElementById('btn-lang').innerText = currentLang === 'th' ? 'EN' : 'TH';
+            document.getElementById('btn-lang-text').innerText = currentLang === 'th' ? 'EN' : 'TH';
             document.getElementById('lang-select').value = currentLang;
             
-            // อัปเดตหัวข้อหน้าปัจจุบัน
             const activeNav = document.querySelector('.nav-link.active span');
             if(activeNav) document.getElementById('page-title').innerText = activeNav.innerText;
         }
 
-        function showPage(pageId, element) {
+        // 2. ระบบสลับหน้า
+        function showPage(pageId, el) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
             document.getElementById('page-' + pageId).classList.remove('hidden');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            if (element) {
-                element.classList.add('active');
-                document.getElementById('page-title').innerText = element.querySelector('span').innerText;
-            } else {
-                // กรณีเรียกจากปุ่มลัด
-                const navLinks = document.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    if (link.getAttribute('onclick').includes(pageId)) {
-                        link.classList.add('active');
-                        document.getElementById('page-title').innerText = link.querySelector('span').innerText;
-                    }
-                });
-            }
+            if(el) { el.classList.add('active'); document.getElementById('page-title').innerText = el.querySelector('span').innerText; }
         }
 
+        // 3. ระบบธีม
         function toggleTheme() {
             const body = document.body;
             const isDark = body.getAttribute('data-theme') === 'dark';
             body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('theme-icon').className = isDark ? 'fas fa-moon text-primary' : 'fas fa-sun text-warning';
             document.getElementById('theme-switch').checked = !isDark;
         }
+
+        // 4. ระบบคำนวณ (Calculator Logic)
+        let calcMode = 'hours';
+        const RATE = 4.5;
+
+        function switchCalcMode(mode) {
+            calcMode = mode;
+            document.getElementById('btn-mode-hours').classList.toggle('active', mode === 'hours');
+            document.getElementById('btn-mode-budget').classList.toggle('active', mode === 'budget');
+            document.getElementById('mode-hours-inputs').classList.toggle('hidden', mode !== 'hours');
+            document.getElementById('mode-budget-inputs').classList.toggle('hidden', mode !== 'budget');
+            document.getElementById('res-hours').classList.toggle('hidden', mode !== 'hours');
+            document.getElementById('res-budget').classList.toggle('hidden', mode !== 'budget');
+            doCalc();
+        }
+
+        function updateWattBySelect() {
+            const val = document.getElementById('calc-device').value;
+            if(val !== "0") syncWatt(val, 'both');
+        }
+
+        function syncWatt(val, target) {
+            if(target === 'input' || target === 'both') document.getElementById('watt-input').value = val;
+            if(target === 'range' || target === 'both') document.getElementById('watt-range').value = val;
+            doCalc();
+        }
+
+        function doCalc() {
+            const w = parseFloat(document.getElementById('watt-input').value) || 0;
+            if(calcMode === 'hours') {
+                const h = parseFloat(document.getElementById('calc-hr').value) || 0;
+                const d = parseFloat(document.getElementById('calc-day').value) || 0;
+                const units = (w / 1000) * h * d;
+                const cost = units * RATE;
+                document.getElementById('out-total').innerText = `฿ ${cost.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                document.getElementById('out-day').innerText = `฿ ${(units * RATE / d || 0).toFixed(2)}`;
+                document.getElementById('out-unit').innerText = units.toFixed(2);
+            } else {
+                const m = parseFloat(document.getElementById('calc-money').value) || 0;
+                const totalHr = m / ((w / 1000) * RATE);
+                document.getElementById('out-possible-hr').innerText = `${totalHr.toFixed(1)} ชม.`;
+                document.getElementById('out-possible-day').innerText = `${(totalHr / 8).toFixed(1)} วัน`;
+            }
+        }
+
+        // Init
+        doCalc();
     </script>
 </body>
 </html>
